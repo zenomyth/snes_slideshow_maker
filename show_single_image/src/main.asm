@@ -16,20 +16,12 @@ start:
 
 	; Set palette
 	stz CGADD
-	lda #$00
-	sta $00
+	ldx #$0000
 @palette_loop:
-	lda #$00
+	lda palette_data, x
 	sta CGDATA
-	lda $00
-	sta CGDATA
-	lda #$7F
-	sta CGDATA
-	lda $00
-	sta CGDATA
-	inc A
-	sta $00
-	cmp #$80
+	inx
+	cpx #$0200
 	bne @palette_loop
 
 	; Set Graphics Mode 3, 8x8 tiles
@@ -42,52 +34,42 @@ start:
 	lda #(>VRAM_CHARS >> 4)
 	sta BG12NBA
 
-	; Load character data into VRAM
+	; Set tiles
 	lda #$80
 	sta VMAIN
 	ldx #VRAM_CHARS
 	stx VMADDL
-	ldx #$00
-@charset_loop:
-	stz VMDATAL
-	stz VMDATAH
-	inx
-	cpx #$20
-	bne @charset_loop
-	ldx #$00
-@charset_loop_1:
-	lda #$FF
+	ldx #$0000
+load_tiles_loop:
+	lda $818000,x
 	sta VMDATAL
-	stz VMDATAH
 	inx
-	cpx #$08
-	bne @charset_loop_1
-	ldx #$00
-@charset_loop_1_1:
-	stz VMDATAL
-	stz VMDATAH
+	lda $818000,x
+	sta VMDATAH
 	inx
-	cpx #$18
-	bne @charset_loop_1_1
+	cpx #$8000
+	bne load_tiles_loop
+	ldx #$0000
+load_tiles_loop_2:
+	lda $828000,x
+	sta VMDATAL
+	inx
+	lda $828000,x
+	sta VMDATAH
+	inx
+	cpx #$6000
+	bne load_tiles_loop_2
 
 	; Set all position as blank
 	ldx #VRAM_BG1
 	stx VMADDL
+	ldx #$0000
 @clear_screen_loop:
-	stz VMDATAL
-	stz VMDATAH
+	stx VMDATAL
+	; stz VMDATAH
 	inx
-	cpx #(VRAM_BG1 + 32 * 32)
+	cpx #(32 * 28)
 	bne @clear_screen_loop
-
-	; Set some tile
-	ldx #(VRAM_BG1 + 14 * 32 + 16)
-	stx VMADDL
-	lda #$01
-	sta VMDATAL
-	stz VMDATAH
-	sta VMDATAL
-	stz VMDATAH
 
 	; Show BG1
 	lda #%00000001
@@ -95,22 +77,6 @@ start:
 
 	lda #$0f
 	sta INIDISP
-
-	; Test load pcx data into RAM
-	ldx #$00
-load_pcx_loop:
-	lda $818000,x
-	sta $7E0000,x
-	inx
-	cpx #$8000
-	bne load_pcx_loop
-	ldx #$00
-load_pcx_loop_3:
-	lda $828000,x
-	sta $7E8000,x
-	inx
-	cpx #$5B2F
-	bne load_pcx_loop_3
 
 busywait:
 	bra busywait
@@ -120,10 +86,13 @@ nmi:
 _rti:
 	rti
 
+palette_data:
+	.incbin "res/palette.dat"
+
 .segment "CODE1"
 
-pcx_data: .incbin "res/Great_Wave_off_Kanagawa2.pcx", $0, $8000
+pcx_data: .incbin "res/tiles.dat", $0, $8000
 
 .segment "CODE2"
 
-pcx_data_2: .incbin "res/Great_Wave_off_Kanagawa2.pcx", $8000
+pcx_data_2: .incbin "res/tiles.dat", $8000
