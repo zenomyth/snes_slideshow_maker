@@ -1,4 +1,5 @@
 import sys
+import os
 
 def parse_pcx(filename):
     with open(filename, mode='rb') as file:
@@ -39,6 +40,10 @@ def parse_pcx(filename):
     return palette, tiles
 
 def main():
+    if len(sys.argv) != 2:
+        print("pcx folder expected!", file=sys.stderr)
+        sys.exit(1)
+    pcx_folder = sys.argv[1]
     with open('slideshow.sfc', mode='wb') as file:
         instructions = bytes([0x78, 0x18, 0xFB, 0xD8, 0xC2, 0x30, 0x9C, 0x00, 0x42, 0x9C, 0x02, 0x42, 0x9C, 0x04, 0x42, 0x9C,
                                 0x06, 0x42, 0x9C, 0x08, 0x42, 0x9C, 0x0A, 0x42, 0x9C, 0x0C, 0x42, 0xA9, 0x80, 0x00, 0x8D, 0x00,
@@ -80,7 +85,7 @@ def main():
         file.seek(0x7FC0)
         file.write(header)
         for i in range(15):
-            palette, tiles = parse_pcx("pcx/{:02d}.pcx".format(i + 1))
+            palette, tiles = parse_pcx(os.path.join(pcx_folder, "{:02d}.pcx".format(i + 1)))
             base_addr = i * 0x10000
             file.seek(base_addr + 0x8000, 0)
             file.write(tiles[0:0x7000])
