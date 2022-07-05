@@ -1,7 +1,8 @@
 import sys
 
 def main():
-    filename = 'Great_Wave_off_Kanagawa2.pcx'
+    # filename = 'Great_Wave_off_Kanagawa2.pcx'
+    filename = 'kyoto.pcx'
     with open(filename, mode='rb') as file:
         content = file.read()
     # print(type(content))

@@ -1,7 +1,9 @@
 import sys
 
 def main():
-    filename = 'Great_Wave_off_Kanagawa2.pcx'
+    # filename = 'Great_Wave_off_Kanagawa2.pcx'
+    # filename = 'kyoto.pcx'
+    filename = 'KJ.pcx'
     with open(filename, mode='rb') as file:
         content = file.read()
     # print(type(content))
@@ -23,7 +25,7 @@ def main():
     for i in range(256):
         palette.append((content[len(content) - 256 * 3 + i * 3] >> 3) | ((content[len(content) - 256 * 3 + i * 3 + 1] >> 3 << 5) & 0xFF))
         palette.append(((content[len(content) - 256 * 3 + i * 3 + 1] >> 6) & 0xFF) | ((content[len(content) - 256 * 3 + i * 3 + 2] >> 3 << 2) & 0xFF))
-    with open('palette.dat', mode='wb') as file:
+    with open('03_palette.dat', mode='wb') as file:
         file.write(palette)
 
     tiles = bytearray(256 * 224)
@@ -37,7 +39,7 @@ def main():
                 if px & 1 == 1:
                     tiles[64 * t_idx + k // 2 * 16 + ii * 2 + k % 2] = tiles[64 * t_idx + k // 2 * 16 + ii * 2 + k % 2] | (1 << (7 - jj))
                 px = px >> 1
-    with open('tiles.dat', mode='wb') as file:
+    with open('03_tiles.dat', mode='wb') as file:
         file.write(tiles)
 
     sys.exit(0)
