@@ -1,6 +1,7 @@
 import sys
 import os
 import math
+import getopt
 
 def parse_pcx(filename):
     with open(filename, mode='rb') as file:
@@ -36,13 +37,35 @@ def parse_pcx(filename):
                 px = px >> 1
     return palette, tiles
 
+def usage():
+    print("Usage: python snes_bin_mod.py [-o output_filename] pcx_file_directory")
+
 def main():
-    if len(sys.argv) != 2:
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "ho:", ["help", "output="])
+    except getopt.GetoptError as err:
+        print(err)
+        usage()
+        sys.exit(2)
+    output_filename = 'slideshow.sfc'
+    for o, a in opts:
+        if o in ("-h", "--help"):
+            usage()
+            sys.exit()
+        elif o in ("-o", "--output"):
+            output_filename = a
+        else:
+            assert False, "unhandled option"
+    if len(args) != 1:
         print("pcx folder expected!", file=sys.stderr)
         sys.exit(1)
-    pcx_folder = sys.argv[1]
-    pcx_num = 17
-    with open('slideshow.sfc', mode='wb') as file:
+    pcx_folder = args[0]
+    file_list = []
+    for root, dirs, files in os.walk(pcx_folder):
+        for file in files:
+            file_list.append(os.path.join(root, file))
+    pcx_num = len(file_list)
+    with open(output_filename, mode='wb') as file:
         instructions = bytearray([0x78, 0x18, 0xFB, 0xD8, 0xC2, 0x30, 0x9C, 0x00, 0x42, 0x9C, 0x02, 0x42, 0x9C, 0x04, 0x42, 0x9C,
                                 0x06, 0x42, 0x9C, 0x08, 0x42, 0x9C, 0x0A, 0x42, 0x9C, 0x0C, 0x42, 0xA9, 0x80, 0x00, 0x8D, 0x00,
                                 0x21, 0x9C, 0x02, 0x21, 0x9C, 0x05, 0x21, 0x9C, 0x07, 0x21, 0x9C, 0x09, 0x21, 0x9C, 0x0B, 0x21,
@@ -85,12 +108,14 @@ def main():
         file.write(instructions)
         file.seek(0x7FC0)
         file.write(header)
-        for i in range(pcx_num):
-            palette, tiles = parse_pcx(os.path.join(pcx_folder, "{:02d}.pcx".format(i + 1)))
+        i = 0
+        for pcx_file in file_list:
+            palette, tiles = parse_pcx(pcx_file)
             file.seek(0x5000 + i * 0x200, 0)
             file.write(palette)
             file.seek(0x8000 + i * 0xE000, 0)
             file.write(tiles)
+            i += 1
         file_size_kb = int(math.ceil((pcx_num * 56 + 32) / 32)) * 32
         if pcx_num * 56 + 32 < file_size_kb:
             file.seek(file_size_kb * 1024 - 1)
