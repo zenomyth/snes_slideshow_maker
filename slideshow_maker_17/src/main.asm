@@ -193,93 +193,93 @@ load_tiles:
 	rts
 
 .segment "PALETTES"
-.incbin "res/01_palette.dat"
-.incbin "res/02_palette.dat"
-.incbin "res/03_palette.dat"
-.incbin "res/04_palette.dat"
-.incbin "res/05_palette.dat"
-.incbin "res/06_palette.dat"
-.incbin "res/07_palette.dat"
-.incbin "res/08_palette.dat"
-.incbin "res/09_palette.dat"
-.incbin "res/10_palette.dat"
-.incbin "res/11_palette.dat"
-.incbin "res/12_palette.dat"
-.incbin "res/13_palette.dat"
-.incbin "res/14_palette.dat"
-.incbin "res/15_palette.dat"
-.incbin "res/16_palette.dat"
-.incbin "res/17_palette.dat"
+.incbin "../../assets/01_palette.dat"
+.incbin "../../assets/02_palette.dat"
+.incbin "../../assets/03_palette.dat"
+.incbin "../../assets/04_palette.dat"
+.incbin "../../assets/05_palette.dat"
+.incbin "../../assets/06_palette.dat"
+.incbin "../../assets/07_palette.dat"
+.incbin "../../assets/08_palette.dat"
+.incbin "../../assets/09_palette.dat"
+.incbin "../../assets/10_palette.dat"
+.incbin "../../assets/11_palette.dat"
+.incbin "../../assets/12_palette.dat"
+.incbin "../../assets/13_palette.dat"
+.incbin "../../assets/14_palette.dat"
+.incbin "../../assets/15_palette.dat"
+.incbin "../../assets/16_palette.dat"
+.incbin "../../assets/17_palette.dat"
 
 .segment "CODE01"
-.incbin "res/01_tiles.dat", $0000, $8000
+.incbin "../../assets/01_tiles.dat", $0000, $8000
 .segment "CODE02"
-.incbin "res/01_tiles.dat", $8000
-.incbin "res/02_tiles.dat", $0000, $2000
+.incbin "../../assets/01_tiles.dat", $8000
+.incbin "../../assets/02_tiles.dat", $0000, $2000
 .segment "CODE03"
-.incbin "res/02_tiles.dat", $2000, $8000
+.incbin "../../assets/02_tiles.dat", $2000, $8000
 .segment "CODE04"
-.incbin "res/02_tiles.dat", $A000
-.incbin "res/03_tiles.dat", $0000, $4000
+.incbin "../../assets/02_tiles.dat", $A000
+.incbin "../../assets/03_tiles.dat", $0000, $4000
 .segment "CODE05"
-.incbin "res/03_tiles.dat", $4000, $8000
+.incbin "../../assets/03_tiles.dat", $4000, $8000
 .segment "CODE06"
-.incbin "res/03_tiles.dat", $C000
-.incbin "res/04_tiles.dat", $0000, $6000
+.incbin "../../assets/03_tiles.dat", $C000
+.incbin "../../assets/04_tiles.dat", $0000, $6000
 .segment "CODE07"
-.incbin "res/04_tiles.dat", $6000
+.incbin "../../assets/04_tiles.dat", $6000
 .segment "CODE08"
-.incbin "res/05_tiles.dat", $0000, $8000
+.incbin "../../assets/05_tiles.dat", $0000, $8000
 .segment "CODE09"
-.incbin "res/05_tiles.dat", $8000
-.incbin "res/06_tiles.dat", $0000, $2000
+.incbin "../../assets/05_tiles.dat", $8000
+.incbin "../../assets/06_tiles.dat", $0000, $2000
 .segment "CODE10"
-.incbin "res/06_tiles.dat", $2000, $8000
+.incbin "../../assets/06_tiles.dat", $2000, $8000
 .segment "CODE11"
-.incbin "res/06_tiles.dat", $A000
-.incbin "res/07_tiles.dat", $0000, $4000
+.incbin "../../assets/06_tiles.dat", $A000
+.incbin "../../assets/07_tiles.dat", $0000, $4000
 .segment "CODE12"
-.incbin "res/07_tiles.dat", $4000, $8000
+.incbin "../../assets/07_tiles.dat", $4000, $8000
 .segment "CODE13"
-.incbin "res/07_tiles.dat", $C000
-.incbin "res/08_tiles.dat", $0000, $6000
+.incbin "../../assets/07_tiles.dat", $C000
+.incbin "../../assets/08_tiles.dat", $0000, $6000
 .segment "CODE14"
-.incbin "res/08_tiles.dat", $6000
+.incbin "../../assets/08_tiles.dat", $6000
 .segment "CODE15"
-.incbin "res/09_tiles.dat", $0000, $8000
+.incbin "../../assets/09_tiles.dat", $0000, $8000
 .segment "CODE16"
-.incbin "res/09_tiles.dat", $8000
-.incbin "res/10_tiles.dat", $0000, $2000
+.incbin "../../assets/09_tiles.dat", $8000
+.incbin "../../assets/10_tiles.dat", $0000, $2000
 .segment "CODE17"
-.incbin "res/10_tiles.dat", $2000, $8000
+.incbin "../../assets/10_tiles.dat", $2000, $8000
 .segment "CODE18"
-.incbin "res/10_tiles.dat", $A000
-.incbin "res/11_tiles.dat", $0000, $4000
+.incbin "../../assets/10_tiles.dat", $A000
+.incbin "../../assets/11_tiles.dat", $0000, $4000
 .segment "CODE19"
-.incbin "res/11_tiles.dat", $4000, $8000
+.incbin "../../assets/11_tiles.dat", $4000, $8000
 .segment "CODE20"
-.incbin "res/11_tiles.dat", $C000
-.incbin "res/12_tiles.dat", $0000, $6000
+.incbin "../../assets/11_tiles.dat", $C000
+.incbin "../../assets/12_tiles.dat", $0000, $6000
 .segment "CODE21"
-.incbin "res/12_tiles.dat", $6000
+.incbin "../../assets/12_tiles.dat", $6000
 .segment "CODE22"
-.incbin "res/13_tiles.dat", $0000, $8000
+.incbin "../../assets/13_tiles.dat", $0000, $8000
 .segment "CODE23"
-.incbin "res/13_tiles.dat", $8000
-.incbin "res/14_tiles.dat", $0000, $2000
+.incbin "../../assets/13_tiles.dat", $8000
+.incbin "../../assets/14_tiles.dat", $0000, $2000
 .segment "CODE24"
-.incbin "res/14_tiles.dat", $2000, $8000
+.incbin "../../assets/14_tiles.dat", $2000, $8000
 .segment "CODE25"
-.incbin "res/14_tiles.dat", $A000
-.incbin "res/15_tiles.dat", $0000, $4000
+.incbin "../../assets/14_tiles.dat", $A000
+.incbin "../../assets/15_tiles.dat", $0000, $4000
 .segment "CODE26"
-.incbin "res/15_tiles.dat", $4000, $8000
+.incbin "../../assets/15_tiles.dat", $4000, $8000
 .segment "CODE27"
-.incbin "res/15_tiles.dat", $C000
-.incbin "res/16_tiles.dat", $0000, $6000
+.incbin "../../assets/15_tiles.dat", $C000
+.incbin "../../assets/16_tiles.dat", $0000, $6000
 .segment "CODE28"
-.incbin "res/16_tiles.dat", $6000
+.incbin "../../assets/16_tiles.dat", $6000
 .segment "CODE29"
-.incbin "res/17_tiles.dat", $0000, $8000
+.incbin "../../assets/17_tiles.dat", $0000, $8000
 .segment "CODE30"
-.incbin "res/17_tiles.dat", $8000
+.incbin "../../assets/17_tiles.dat", $8000
