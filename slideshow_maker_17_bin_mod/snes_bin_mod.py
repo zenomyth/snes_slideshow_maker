@@ -63,7 +63,8 @@ def main():
     file_list = []
     for root, dirs, files in os.walk(pcx_folder):
         for file in files:
-            file_list.append(os.path.join(root, file))
+            if file.endswith(".pcx"):
+                file_list.append(os.path.join(root, file))
     pcx_num = len(file_list)
     with open(output_filename, mode='wb') as file:
         instructions = bytearray([0x78, 0x18, 0xFB, 0xD8, 0xC2, 0x30, 0x9C, 0x00, 0x42, 0x9C, 0x02, 0x42, 0x9C, 0x04, 0x42, 0x9C,

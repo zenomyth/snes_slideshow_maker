@@ -29,16 +29,20 @@ def main():
     file_list = []
     for root, dirs, files in os.walk(jpg_folder):
         for file in files:
-            file_list.append(os.path.join(root, file))
+            if file.endswith(".jpg"):
+                file_list.append(os.path.join(root, file))
     for input_file in file_list:
         file_title, _ = os.path.splitext(os.path.basename(input_file))
         output_file = os.path.join(output_folder, file_title + ".pcx")
-        cmd = ["convert", input_file, "-resize", "256x224", "-background", "Black", "-gravity", "center", "-extent", "256x224", "-colors", "256", output_file]
+        # cmd = ["convert", input_file, "-resize", "256x224", "-background", "Black", "-gravity", "center", "-extent", "256x224", "-colors", "256", output_file]
+        # cmd = ["magick", input_file, "-resize", "256x224", "-background", "Black", "-gravity", "center", "-extent", "256x224", "-colors", "256", output_file]
+        cmd = ["magick", input_file, "-filter", "Mitchell", "-resize", "256x224", "-background", "Black", "-gravity", "center", "-extent", "256x224", "-colors", "256", output_file]
         result = subprocess.Popen(cmd)
         text = result.communicate()[0]
         return_code = result.returncode
         if return_code != 0:
             print(text)
+            print(" ".join(cmd))
 
     sys.exit(0)
 
