@@ -12,6 +12,9 @@ BIN     := $(OUTDIR)/slideshow.sfc
 # Default target
 all: $(BIN)
 
+run: $(BIN)
+	../emulator/Mesen-S.0.4.0/Mesen-S.exe $<
+
 # Rule to link the final binary
 $(BIN): $(OBJ)
 	$(LD) -C $(CFG) -o $@ $<
@@ -28,4 +31,4 @@ $(OUTDIR):
 clean:
 	rm -rf $(OUTDIR)
 
-.PHONY: all clean
+.PHONY: all clean run
