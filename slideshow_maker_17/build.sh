@@ -5,5 +5,5 @@ set -e
 cd "$(dirname "$0")"
 
 mkdir -p out
-ca65 ./src/main.asm -o ./out/main.o -g
-ld65 -C ./src/lorom.cfg -o ./out/slideshow.sfc ./out/main.o
+../assemblers/ca65 ./src/main.asm -o ./out/main.o -g
+../assemblers/ld65 -C ./src/lorom.cfg -o ./out/slideshow.sfc ./out/main.o
