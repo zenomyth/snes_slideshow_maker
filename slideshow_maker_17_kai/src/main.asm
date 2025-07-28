@@ -16,6 +16,8 @@ pal_bank: .res 1
 pal_addr: .res 2
 prev_btn: .res 1
 prev_btn_temp: .res 1
+tile_bank_2: .res 1
+tile_addr_2: .res 2
 
 .segment "CODE"
 
@@ -49,7 +51,7 @@ start:
 	jsr load_tiles
 	dey
 	bne @load_tiles_img_1
-	inc cur_img
+	jsr advance_img_index
 
 	; Set tiles
 	ldx #VRAM_BG1
@@ -113,11 +115,7 @@ mainloop:
 	bne mainloop
 	lda #$0F
 	sta INIDISP
-	inc cur_img
-	lda cur_img
-	cmp #$11
-	bne mainloop
-	jsr reset_img_index
+	jsr advance_img_index
 	bra mainloop
 @btn_not_pressed:
 
@@ -128,6 +126,8 @@ nmi:
 	inc nmi_count
 _rti:
 	rti
+
+; Routine definitions
 
 reset_img_index:
 	stz cur_img
@@ -140,6 +140,15 @@ reset_img_index:
 	sta pal_bank
 	ldx #$D000
 	stx pal_addr
+	rts
+
+advance_img_index:
+	inc cur_img
+	lda cur_img
+	cmp #$11
+	bne @no_need_to_reset_img_index
+	jsr reset_img_index
+@no_need_to_reset_img_index:
 	rts
 
 load_palette:
@@ -191,6 +200,8 @@ load_tiles:
 	stx tile_addr
 	inc tile_bank
 	rts
+
+; Resources
 
 .segment "PALETTES"
 .incbin "../../assets/01_palette.dat"
