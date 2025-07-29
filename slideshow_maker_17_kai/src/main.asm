@@ -149,6 +149,35 @@ advance_img_index:
 	bne @no_need_to_reset_img_index
 	jsr reset_img_index
 @no_need_to_reset_img_index:
+	jsr evaluate_res_pos
+	rts
+	
+evaluate_res_pos:
+	lda cur_img
+	; bank = cur_img * 7 / 4
+	; addr = (cur_img * 14 % 8) * 0x1000 + 0x8000
+	asl
+	asl
+	asl
+	sec
+	sbc cur_img
+	tax
+	lsr
+	lsr
+	clc
+	adc #$81
+	sta tile_bank_2
+	setA16
+	txa
+	and #3
+	clc
+	ror
+	ror
+	ror
+	ror
+	ora #$8000
+	sta tile_addr_2
+	setA8
 	rts
 
 load_palette:
