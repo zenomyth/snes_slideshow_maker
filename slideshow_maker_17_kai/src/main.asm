@@ -52,7 +52,6 @@ start:
 	jsr load_tiles
 	dey
 	bne @load_tiles_img_1
-	jsr advance_img_index
 
 	; Set tiles
 	ldx #VRAM_BG1
@@ -112,6 +111,7 @@ mainloop:
 	bit #%10000000 ; B button
 	beq @btn_not_pressed
 @btn_pressed:
+	jsr advance_img_index
 	lda #$00
 	sta INIDISP
 	jsr load_palette
@@ -126,7 +126,6 @@ mainloop:
 	bne mainloop
 	lda #$0F
 	sta INIDISP
-	jsr advance_img_index
 	bra mainloop
 @btn_not_pressed:
 
