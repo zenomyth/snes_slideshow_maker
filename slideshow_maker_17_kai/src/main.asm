@@ -111,7 +111,8 @@ mainloop:
 	bit #%10000000 ; B button
 	beq @btn_not_pressed
 @btn_pressed:
-	jsr advance_img_index
+	; jsr advance_img_index
+	jsr retreat_img_index
 	lda #$00
 	sta INIDISP
 	jsr load_palette
@@ -158,6 +159,17 @@ advance_img_index:
 	cmp #$11
 	bne @no_need_to_reset_img_index
 	stz cur_img
+@no_need_to_reset_img_index:
+	jsr evaluate_res_pos
+	rts
+
+retreat_img_index:
+	dec cur_img
+	lda cur_img
+	cmp #$FF
+	bne @no_need_to_reset_img_index
+	lda #$10
+	sta cur_img
 @no_need_to_reset_img_index:
 	jsr evaluate_res_pos
 	rts
