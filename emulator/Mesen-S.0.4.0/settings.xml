@@ -2,7 +2,7 @@
 <Configuration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Version>0.4.0</Version>
   <Video>
-    <VideoScale>4.531380753138075</VideoScale>
+    <VideoScale>3</VideoScale>
     <CustomAspectRatio>1</CustomAspectRatio>
     <VideoFilter>None</VideoFilter>
     <AspectRatio>NoStretching</AspectRatio>
@@ -570,9 +570,9 @@
   </Emulation>
   <Preferences>
     <DisplayLanguage>English</DisplayLanguage>
-    <AutomaticallyCheckForUpdates>true</AutomaticallyCheckForUpdates>
+    <AutomaticallyCheckForUpdates>false</AutomaticallyCheckForUpdates>
     <SingleInstance>true</SingleInstance>
-    <AutoLoadPatches>true</AutoLoadPatches>
+    <AutoLoadPatches>false</AutoLoadPatches>
     <PauseWhenInBackground>true</PauseWhenInBackground>
     <PauseWhenInMenusAndConfig>true</PauseWhenInMenusAndConfig>
     <PauseWhenInDebuggingTools>false</PauseWhenInDebuggingTools>
@@ -912,7 +912,7 @@
     <OverrideGameFolder>false</OverrideGameFolder>
     <OverrideAviFolder>false</OverrideAviFolder>
     <OverrideMovieFolder>false</OverrideMovieFolder>
-    <OverrideSaveDataFolder>true</OverrideSaveDataFolder>
+    <OverrideSaveDataFolder>false</OverrideSaveDataFolder>
     <OverrideSaveStateFolder>false</OverrideSaveStateFolder>
     <OverrideScreenshotFolder>false</OverrideScreenshotFolder>
     <OverrideWaveFolder>false</OverrideWaveFolder>
@@ -1396,12 +1396,12 @@
     <ServerPassword />
   </Netplay>
   <WindowLocation>
-    <X>725</X>
-    <Y>203</Y>
+    <X>548</X>
+    <Y>156</Y>
   </WindowLocation>
   <WindowSize>
-    <Width>1302</Width>
-    <Height>1222</Height>
+    <Width>786</Width>
+    <Height>792</Height>
   </WindowSize>
   <NeedInputReinit2>false</NeedInputReinit2>
   <DefaultKeyMappings>Xbox WasdKeys</DefaultKeyMappings>
