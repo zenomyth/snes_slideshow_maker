@@ -16,6 +16,8 @@ pal_bank: .res 1
 pal_addr: .res 2
 prev_btn: .res 1
 prev_btn_temp: .res 1
+prev_btn_2: .res 1
+prev_btn_temp_2: .res 1
 tile_bank_2: .res 1
 tile_addr_2: .res 2
 
@@ -30,6 +32,7 @@ start:
 	; Init variables
 	stz nmi_count
 	stz prev_btn
+	stz prev_btn_2
 	jsr reset_img_index
 
 	; Load image 1
@@ -92,15 +95,25 @@ mainloop:
 
 	lda prev_btn
 	sta prev_btn_temp
-	lda JOY1H
+	lda JOY1L
 	sta prev_btn
+	lda prev_btn_2
+	sta prev_btn_temp_2
+	lda JOY1H
+	sta prev_btn_2
 	lda load_line_remain
 	bne @load_tiles
 	lda prev_btn
 	eor prev_btn_temp
 	and prev_btn ; Ignore hold button
+	bit #%10000000 ; A button
+	bne @btn_pressed
+	lda prev_btn_2
+	eor prev_btn_temp_2
+	and prev_btn_2 ; Ignore hold button
 	bit #%10000000 ; B button
 	beq @btn_not_pressed
+@btn_pressed:
 	lda #$00
 	sta INIDISP
 	jsr load_palette
