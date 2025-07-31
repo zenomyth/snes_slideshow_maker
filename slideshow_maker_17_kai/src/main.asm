@@ -20,6 +20,8 @@ prev_btn_2: .res 1
 prev_btn_temp_2: .res 1
 tile_bank_2: .res 1
 tile_addr_2: .res 2
+pal_bank_2: .res 1
+pal_addr_2: .res 2
 
 .segment "CODE"
 
@@ -164,11 +166,11 @@ advance_img_index:
 @no_need_to_reset_img_index:
 	jsr evaluate_res_pos
 	rts
-	
+
 evaluate_res_pos:
 	lda cur_img
-	; bank = cur_img * 7 / 4
-	; addr = (cur_img * 14 % 8) * 0x1000 + 0x8000
+	; tile bank = 0x81 + cur_img * 7 / 4
+	; tile addr = (cur_img * 14 % 8) * 0x1000 + 0x8000
 	asl
 	asl
 	asl
@@ -191,6 +193,17 @@ evaluate_res_pos:
 	ora #$8000
 	sta tile_addr_2
 	setA8
+	; pal bank = 0x80
+	; pal addr = 0xD000 + (cur_img * 0x200)
+	lda #$80
+	sta pal_bank_2
+	lda #0
+	sta pal_addr_2
+	lda cur_img
+	asl
+	clc
+	adc #$D0
+	sta pal_addr_2 + 1
 	rts
 
 load_palette:
