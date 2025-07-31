@@ -18,10 +18,6 @@ prev_btn: .res 1
 prev_btn_temp: .res 1
 prev_btn_2: .res 1
 prev_btn_temp_2: .res 1
-tile_bank_2: .res 1
-tile_addr_2: .res 2
-pal_bank_2: .res 1
-pal_addr_2: .res 2
 
 .segment "CODE"
 
@@ -35,7 +31,7 @@ start:
 	stz nmi_count
 	stz prev_btn
 	stz prev_btn_2
-	jsr reset_img_index
+	jsr init_img_index
 
 	; Load image 1
 	jsr load_palette
@@ -144,7 +140,7 @@ _rti:
 
 ; Routine definitions
 
-reset_img_index:
+init_img_index:
 	stz cur_img
 	stz load_line_remain
 	lda #$81
@@ -162,7 +158,7 @@ advance_img_index:
 	lda cur_img
 	cmp #$11
 	bne @no_need_to_reset_img_index
-	jsr reset_img_index
+	stz cur_img
 @no_need_to_reset_img_index:
 	jsr evaluate_res_pos
 	rts
@@ -181,7 +177,7 @@ evaluate_res_pos:
 	lsr
 	clc
 	adc #$81
-	sta tile_bank_2
+	sta tile_bank
 	setA16
 	txa
 	and #3
@@ -191,19 +187,19 @@ evaluate_res_pos:
 	ror
 	ror
 	ora #$8000
-	sta tile_addr_2
+	sta tile_addr
 	setA8
 	; pal bank = 0x80
 	; pal addr = 0xD000 + (cur_img * 0x200)
 	lda #$80
-	sta pal_bank_2
+	sta pal_bank
 	lda #0
-	sta pal_addr_2
+	sta pal_addr
 	lda cur_img
 	asl
 	clc
 	adc #$D0
-	sta pal_addr_2 + 1
+	sta pal_addr + 1
 	rts
 
 load_palette:
