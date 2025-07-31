@@ -104,15 +104,20 @@ mainloop:
 	eor prev_btn_temp
 	and prev_btn ; Ignore hold button
 	bit #%10000000 ; A button
-	bne @btn_pressed
+	bne @a_btn_pressed
 	lda prev_btn_2
 	eor prev_btn_temp_2
 	and prev_btn_2 ; Ignore hold button
 	bit #%10000000 ; B button
-	beq @btn_not_pressed
-@btn_pressed:
-	; jsr advance_img_index
+	bne @b_btn_pressed
+	bra @no_btn_pressed
+@a_btn_pressed:
+	jsr advance_img_index
+	bra @load_new_img
+@b_btn_pressed:
 	jsr retreat_img_index
+	; bra @load_new_img
+@load_new_img:
 	lda #$00
 	sta INIDISP
 	jsr load_palette
@@ -128,8 +133,7 @@ mainloop:
 	lda #$0F
 	sta INIDISP
 	bra mainloop
-@btn_not_pressed:
-
+@no_btn_pressed:
 	bra mainloop
 
 nmi:
