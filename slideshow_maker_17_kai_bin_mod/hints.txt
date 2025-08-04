@@ -1,0 +1,8 @@
+How to update old binaries?
+Consider we have new binary new.sfc and old binary old.sfc, we can update old.sfc by replacing the code and header section with the counter parts from new.sfc.
+In bash, the following command can be used:
+{ dd if=new.sfc bs=1 count=20480; dd if=old.sfc bs=1 skip=20480 count=12224; dd if=new.sfc bs=1 skip=32704 count=64; dd if=old.sfc bs=1 skip=32768; } > updated.sfc
+
+How to extract code from binary?
+xxd (bash, vim) can be used to extract binary content into C header. The following command extract the first 512 bytes.
+xxd -i -l 512 binaryfile
